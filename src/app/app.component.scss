@@ -1,0 +1,18 @@
+@import "../style/variables";
+
+.raytracerHeader {
+  width: 100%;
+  box-sizing: border-box;
+  padding: $margin*2;
+  background-color: $dark-green;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: $margin;
+  box-shadow: $shadow;
+}
+
+.raytracerContainer {
+  width: 80%;
+  margin: $margin 10%;
+}
