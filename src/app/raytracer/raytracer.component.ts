@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RaytracerCalculationService } from '../raytracer-calculation.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RaytracerCalculationService } from '../raytracer-calculation.service';
   templateUrl: './raytracer.component.html',
   styleUrls: ['./raytracer.component.scss']
 })
-export class RaytracerComponent implements OnInit {
+export class RaytracerComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas') canvas;
 
@@ -18,7 +18,27 @@ export class RaytracerComponent implements OnInit {
     this.canvas.nativeElement.width = 600;
     this.canvas.nativeElement.height = 400;
     const ctx = this.canvas.nativeElement.getContext('2d');
-    this.raytracer.printImage(ctx, this.objectList);
+    ctx.fillStyle = 'black';
+    ctx.rect(0, 0, 600, 400);
+    ctx.fill();
+    ctx.beginPath();
+  }
+
+  async ngAfterViewInit() {
+    const promise = new Promise((resolve, reject) => {
+      console.log('begin');
+      const ctx = this.canvas.nativeElement.getContext('2d');
+      setTimeout(() => {
+        resolve();
+        this.raytracer.printImage(ctx, this.objectList);
+        ctx.fill();
+        console.log('promise');
+      }, 0);
+    });
+    console.log('afterView');
+    promise.then(() => {
+      console.log('then');
+    });
   }
 
 }
