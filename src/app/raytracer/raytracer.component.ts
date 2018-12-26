@@ -26,18 +26,14 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     const promise = new Promise((resolve, reject) => {
-      console.log('begin');
       const ctx = this.canvas.nativeElement.getContext('2d');
       setTimeout(() => {
         resolve();
         this.raytracer.printImage(ctx, this.objectList);
         ctx.fill();
-        console.log('promise');
       }, 0);
     });
-    console.log('afterView');
     promise.then(() => {
-      console.log('then');
     });
   }
 
