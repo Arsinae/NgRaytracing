@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { SphereService } from './collide/sphere.service';
+import { CylinderService } from './collide/cylinder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,14 @@ export class RaytracerCalculationService {
         const lineVector = {x: x, y: y, z: 600};
         let inter = -1;
         for (const object of objectList) {
+          let pointObj;
           if (object.type === 'sphere') {
-            const pointObj = SphereService.collide(object, cameraPos, lineVector);
-            if (pointObj !== -1) {
-              inter = (inter === -1) ? pointObj : Math.min(pointObj, inter);
-            }
+            pointObj = SphereService.collide(object, cameraPos, lineVector);
+          } else if (object.type === 'cylinder') {
+            pointObj = CylinderService.collide(object, cameraPos, lineVector);
+          }
+          if (pointObj !== -1) {
+            inter = (inter === -1) ? pointObj : Math.min(pointObj, inter);
           }
         }
         if (inter !== -1) {

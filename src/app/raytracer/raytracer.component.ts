@@ -10,7 +10,7 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas') canvas;
 
-  objectList = [{type: 'sphere', pos: {x: 0, y: 0, z: 200}, r: 20}, {type: 'sphere', pos: {x: 300, y: -50, z: 150}, r: 50}];
+  objectList = [{type: 'sphere', pos: {x: 0, y: 0, z: 200}, r: 20}, {type: 'cylinder', pos: {x: 300, y: -50, z: 150}, r: 50, size: 20}];
 
   constructor(private raytracer: RaytracerCalculationService) { }
 
