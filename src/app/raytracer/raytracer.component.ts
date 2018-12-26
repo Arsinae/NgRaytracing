@@ -1,3 +1,4 @@
+import { FormClass } from './formClass';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RaytracerCalculationService } from '../raytracer-calculation.service';
 
@@ -10,7 +11,10 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas') canvas;
 
-  objectList = [{type: 'sphere', pos: {x: 0, y: 0, z: 200}, r: 20}, {type: 'cylinder', pos: {x: 300, y: -50, z: 150}, r: 50, size: 20}];
+  objectList: Array<FormClass> = [
+    {type: 'sphere', pos: {x: 0, y: 0, z: 200}, r: 20, center: 20, size: 3, color: {r: 255, g: 0, b: 0, a: 0}},
+    {type: 'hyperbole', pos: {x: 300, y: -50, z: 150}, r: 50, center: 20, size: 100, color: {r: 0, g: 0, b: 255, a: 0}}
+  ];
 
   constructor(private raytracer: RaytracerCalculationService) { }
 
@@ -21,7 +25,7 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
     ctx.fillStyle = 'black';
     ctx.rect(0, 0, 600, 400);
     ctx.fill();
-    ctx.beginPath();
+    // ctx.beginPath();
   }
 
   async ngAfterViewInit() {
@@ -30,7 +34,7 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         resolve();
         this.raytracer.printImage(ctx, this.objectList);
-        ctx.fill();
+        // ctx.fill();
       }, 0);
     });
     promise.then(() => {

@@ -1,3 +1,5 @@
+import { ConeService } from './cone.service';
+import { CylinderService } from './cylinder.service';
 import { SphereService } from './sphere.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,7 +9,9 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   providers: [
-    SphereService
+    SphereService,
+    CylinderService,
+    ConeService
   ],
   declarations: []
 })
