@@ -1,3 +1,9 @@
 <div class="canvasContainer">
   <canvas #canvas></canvas>
 </div>
+
+<app-object-management [(objectList)]="objectList"></app-object-management>
+
+<div class="renderButton">
+  <rd-button [color]="'green'" (buttonClick)="renderData()">Update View</rd-button>
+</div>

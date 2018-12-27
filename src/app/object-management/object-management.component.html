@@ -1,0 +1,47 @@
+<rd-accordion [autoClose]="false">
+  <rd-panel [color]="'green'" *ngFor="let object of objectList; let i = index">
+    <div class="accordeonTitle" title>Object {{i + 1}}</div>
+    <div class="inputLine">
+      <span>
+        <select [value]="object.type" [(ngModel)]="object.type">
+          <option value="sphere">Sphere</option>
+          <option value="cylinder">Cylinder</option>
+          <option value="cone">Cone</option>
+          <option value="hyperbole">Hyperbole</option>
+        </select>
+      </span>
+
+      <span>
+        <rd-input [placeholder]="'Rayon'" [type]="'number'" [(value)]="object.r" [color]="'green'"></rd-input>
+      </span>
+
+      <span *ngIf="object.type !== 'sphere'">
+        <rd-input [placeholder]="'Size'" [type]="'number'" [(value)]="object.size" [color]="'green'"></rd-input>
+      </span>
+
+      <span *ngIf="object.type === 'hyperbole'">
+        <rd-input [placeholder]="'Center Size'" [type]="'number'" [(value)]="object.center" [color]="'green'"></rd-input>
+      </span>
+    </div>
+    <div class="posForm">
+      <div class="title">Position</div>
+      <div class="inputLine">
+        <span>
+          <rd-input [placeholder]="'X'" [type]="'number'" [(value)]="object.pos.x" [color]="'green'"></rd-input>
+        </span>
+
+        <span>
+          <rd-input [placeholder]="'Y'" [type]="'number'" [(value)]="object.pos.y" [color]="'green'"></rd-input>
+        </span>
+
+        <span>
+          <rd-input [placeholder]="'Z'" [type]="'number'" [(value)]="object.pos.z" [color]="'green'"></rd-input>
+        </span>
+      </div>
+    </div>
+  </rd-panel>
+  <rd-panel *ngIf="objectList.length < 5" (stateChange)="addObject()" [color]="'green'">
+    <div title>New object</div>
+  </rd-panel>
+</rd-accordion>
+

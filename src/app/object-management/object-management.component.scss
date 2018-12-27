@@ -1,0 +1,21 @@
+@import "../../style/variables";
+
+.inputLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+
+  &>span {
+    padding: 0 $margin;
+    flex: 1;
+    min-width: 150px;
+    box-sizing: border-box;
+  }
+}
+
+.posForm>.title {
+  font-size: 16px;
+  font-weight: bold;
+  color: $colored-green;
+  padding: $margin;
+}
