@@ -17,8 +17,14 @@ export class ObjectManagementComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteObject(index) {
+    this.objectList.splice(index, 1);
+    this.objectListChange.emit(this.objectList);
+  }
+
   addObject() {
     this.objectList.push(new FormClass());
+    this.objectListChange.emit(this.objectList);
   }
 
 }

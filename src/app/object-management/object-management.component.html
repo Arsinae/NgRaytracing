@@ -3,12 +3,20 @@
     <div class="accordeonTitle" title>Object {{i + 1}}</div>
     <div class="inputLine">
       <span>
-        <select [value]="object.type" [(ngModel)]="object.type">
-          <option value="sphere">Sphere</option>
-          <option value="cylinder">Cylinder</option>
-          <option value="cone">Cone</option>
-          <option value="hyperbole">Hyperbole</option>
-        </select>
+        <rd-select [(value)]="object.type" [color]="'green'" [placeholder]="'Type'">
+          <rd-select-option [value]="'sphere'" [text]="'Sphere'">
+            <div class="selectOption">Sphere</div>
+          </rd-select-option>
+          <rd-select-option [value]="'cylinder'" [text]="'Cylinder'">
+            <div class="selectOption">Cylinder</div>
+          </rd-select-option>
+          <rd-select-option [value]="'cone'" [text]="'Cone'">
+            <div class="selectOption">Cone</div>
+          </rd-select-option>
+          <rd-select-option [value]="'hyperbole'" [text]="'Hyperbole'">
+            <div class="selectOption last">Hyperbole</div>
+          </rd-select-option>
+        </rd-select>
       </span>
 
       <span>
@@ -23,6 +31,7 @@
         <rd-input [placeholder]="'Center Size'" [type]="'number'" [(value)]="object.center" [color]="'green'"></rd-input>
       </span>
     </div>
+
     <div class="posForm">
       <div class="title">Position</div>
       <div class="inputLine">
@@ -37,6 +46,10 @@
         <span>
           <rd-input [placeholder]="'Z'" [type]="'number'" [(value)]="object.pos.z" [color]="'green'"></rd-input>
         </span>
+      </div>
+
+      <div class="deleteButton">
+        <rd-button [color]="'red'" (buttonClick)="deleteObject(i)">Delete</rd-button>
       </div>
     </div>
   </rd-panel>

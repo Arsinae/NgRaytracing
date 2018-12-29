@@ -11,6 +11,15 @@
     min-width: 150px;
     box-sizing: border-box;
   }
+
+  .selectOption {
+    border-bottom: 1px $dark-green solid;
+    padding: $margin $margin/2;
+
+    &.last {
+      border: none;
+    }
+  }
 }
 
 .posForm>.title {
@@ -18,4 +27,9 @@
   font-weight: bold;
   color: $colored-green;
   padding: $margin;
+}
+
+.deleteButton {
+  margin: $margin 10%;
+  width: 80%;
 }
