@@ -26,3 +26,20 @@ export class FormClass {
   constructor() {
   }
 }
+
+export class Light {
+
+  public pos = new Position();
+}
+
+export class Ray {
+
+  public pos = new Position();
+  public ray = new Position();
+}
+
+export class LightRay {
+
+  public ray = new Position();
+  public impact = new Position();
+}

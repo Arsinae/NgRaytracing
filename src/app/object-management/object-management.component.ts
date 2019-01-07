@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormClass } from './../raytracer/formClass';
+import { FormClass, Light } from '../raytracer/dataClass';
 
 @Component({
   selector: 'app-object-management',
@@ -9,8 +9,10 @@ import { FormClass } from './../raytracer/formClass';
 export class ObjectManagementComponent implements OnInit {
 
   @Input() objectList: Array<FormClass> = [];
+  @Input() light: Light = new Light();
 
   @Output() objectListChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() LightChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 

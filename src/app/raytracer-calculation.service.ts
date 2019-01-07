@@ -1,22 +1,23 @@
-import { FormClass } from './raytracer/formClass';
+import { FormClass, Ray } from './raytracer/dataClass';
 import { HyperboleService } from './collide/hyperbole.service';
 import { ConeService } from './collide/cone.service';
 import { Injectable } from '@angular/core';
 
 import { SphereService } from './collide/sphere.service';
 import { CylinderService } from './collide/cylinder.service';
+import { ColorCalculationService } from './color-calculation.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RaytracerCalculationService {
 
-  constructor() { }
+  constructor(private color: ColorCalculationService) { }
 
   // Search if there is a collision between a ray and one object depending his type
   // Return the collision data (vector distance & object collided)
   searchCollision(collide, object, cameraPos, lineVector) {
-    let pointObj;
+    let pointObj: Number;
     if (object.type === 'sphere') {
       pointObj = SphereService.collide(object, cameraPos, lineVector);
     } else if (object.type === 'cylinder') {
@@ -32,28 +33,22 @@ export class RaytracerCalculationService {
     return collide;
   }
 
-  addColor(x, y, collide, imageData) {
-    const index = (y + 200) * 600 * 4 + (x + 300) * 4;
-    imageData.data[index] = collide.object.color.r;
-    imageData.data[index + 1] = collide.object.color.g;
-    imageData.data[index + 2] = collide.object.color.b;
-  }
-
   // Search for 1 pixel on 4 if there is an intersection between an object and the vector camera/pixel
   // The camera is set in {0, 0, -600} and the plane start at (-300, -200, 0)
-  printImage(ctx, objectList: Array<FormClass>) {
+  printImage(ctx, objectList: Array<FormClass>, light) {
     const step = 1;
-    const cameraPos = {x: 0, y: 0, z: -600};
+    const camera = new Ray();
+    camera.pos = {x: 0, y: 0, z: -600};
     const imageData = ctx.getImageData(0, 0, 600, 400);
     for (let y = -200; y < 200; y += step) {
       for (let x = -300; x < 300; x += step) {
-        const lineVector = {x: x, y: y, z: 600};
-        let collide: {t: Number, object: FormClass} = {t: -1, object: new FormClass()};
+        camera.ray = {x: x, y: y, z: 600};
+        let collide: {t: number, object: FormClass} = {t: -1, object: new FormClass()};
         for (const object of objectList) {
-          collide = this.searchCollision(collide, object, cameraPos, lineVector);
+          collide = this.searchCollision(collide, object, camera.pos, camera.ray);
         }
         if (collide.t !== -1) {
-          this.addColor(x, y, collide, imageData);
+          this.color.calculatePixelColor(imageData, collide, light, camera, {x : x, y: y});
         }
       }
     }

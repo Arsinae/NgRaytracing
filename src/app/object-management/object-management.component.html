@@ -56,5 +56,24 @@
   <rd-panel *ngIf="objectList.length < 5" (stateChange)="addObject()" [color]="'green'">
     <div title>New object</div>
   </rd-panel>
+
+  <rd-panel [color]="'green'">
+    <div class="posForm">
+      <div class="title">Position</div>
+      <div class="inputLine">
+        <span>
+          <rd-input [placeholder]="'X'" [type]="'number'" [(value)]="light.pos.x" [color]="'green'"></rd-input>
+        </span>
+
+        <span>
+          <rd-input [placeholder]="'Y'" [type]="'number'" [(value)]="light.pos.y" [color]="'green'"></rd-input>
+        </span>
+
+        <span>
+          <rd-input [placeholder]="'Z'" [type]="'number'" [(value)]="light.pos.z" [color]="'green'"></rd-input>
+        </span>
+      </div>
+    </div>
+  </rd-panel>
 </rd-accordion>
 
