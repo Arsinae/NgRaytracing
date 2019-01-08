@@ -32,7 +32,8 @@ export class HyperboleService {
     } else {
       const t = HyperboleService.hyperboleDelta(a, b, c, delta);
       const intersectionY = camera.y + vector.y * t;
-      return (intersectionY <= object.pos.y + (object.size / 2) && intersectionY >= object.pos.y - (object.size / 2)) ? t : -1;
+      return intersectionY <= parseInt(object.pos.y, 10) + (object.size / 2)
+      && intersectionY >= parseInt(object.pos.y, 10) - (object.size / 2) ? t : -1;
     }
   }
 

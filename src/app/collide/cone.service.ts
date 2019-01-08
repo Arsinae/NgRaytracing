@@ -31,7 +31,7 @@ export class ConeService {
     } else {
       const t = ConeService.coneDelta(a, b, c, delta);
       const intersectionY = camera.y + vector.y * t;
-      return (intersectionY <= object.size + object.pos.y && intersectionY >= object.pos.y) ? t : -1;
+      return (intersectionY <= object.size + parseInt(object.pos.y, 10) && intersectionY >= parseInt(object.pos.y, 10)) ? t : -1;
     }
   }
 
