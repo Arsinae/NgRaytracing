@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Ray } from './../raytracer/dataClass';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,15 @@ export class CylinderService {
       const intersectionY = camera.y + vector.y * t;
       return (intersectionY <= object.size + object.pos.y && intersectionY >= object.pos.y) ? t : -1;
     }
+  }
+
+  static normal(object, impact) {
+    const normal = new Ray();
+    normal.pos = object.pos;
+    normal.ray.x = impact.x - normal.pos.x;
+    normal.ray.y = 0;
+    normal.ray.z = impact.z - normal.pos.z;
+    return (normal);
   }
 
   constructor() { }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Ray } from './../raytracer/dataClass';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,15 @@ export class HyperboleService {
       const intersectionY = camera.y + vector.y * t;
       return (intersectionY <= object.pos.y + (object.size / 2) && intersectionY >= object.pos.y - (object.size / 2)) ? t : -1;
     }
+  }
+
+  static normal(object, impact) {
+    const normal = new Ray();
+    normal.pos = object.pos;
+    normal.ray.x = (impact.x - normal.pos.x) / Math.pow(object.center, 2);
+    normal.ray.y = (impact.y - normal.pos.y) / Math.pow(object.r, 2);
+    normal.ray.z = (impact.z - normal.pos.z) / Math.pow(object.center, 2);
+    return (normal);
   }
 
   constructor() { }

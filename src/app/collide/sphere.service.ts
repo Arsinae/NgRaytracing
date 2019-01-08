@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Ray } from '../raytracer/dataClass';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,15 @@ export class SphereService {
     } else {
       return SphereService.sphereDelta(a, b, c, delta);
     }
+  }
+
+  static normal(object, impact) {
+    const normal = new Ray();
+    normal.pos = object.pos;
+    normal.ray.x = impact.x - normal.pos.x;
+    normal.ray.y = impact.y - normal.pos.y;
+    normal.ray.z = impact.z - normal.pos.z;
+    return normal;
   }
 
   constructor() { }
