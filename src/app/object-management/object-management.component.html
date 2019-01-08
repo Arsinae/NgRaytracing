@@ -54,10 +54,11 @@
     </div>
   </rd-panel>
   <rd-panel *ngIf="objectList.length < 5" (stateChange)="addObject()" [color]="'green'">
-    <div title>New object</div>
+    <div title> + New object</div>
   </rd-panel>
 
   <rd-panel [color]="'green'">
+    <div title>Light</div>
     <div class="posForm">
       <div class="title">Position</div>
       <div class="inputLine">
