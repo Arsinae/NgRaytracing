@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { SphereService } from './collide/sphere.service';
-import { CylinderService } from './collide/cylinder.service';
-import { ConeService } from './collide/cone.service';
-import { HyperboleService } from './collide/hyperbole.service';
-import { Ray, Light, LightRay, FormClass } from './raytracer/dataClass';
+import { SphereService } from '../collide/sphere.service';
+import { CylinderService } from '../collide/cylinder.service';
+import { ConeService } from '../collide/cone.service';
+import { HyperboleService } from '../collide/hyperbole.service';
+import { Ray, Light, LightRay, FormClass } from '../raytracer/dataClass';
+import { HslService } from './hsl.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColorCalculationService {
 
-  constructor() { }
+  constructor(private colorConverter: HslService) { }
 
   private getLightRay(light: Light, collide, camera: Ray) {
     const ray = new LightRay();
@@ -47,18 +48,25 @@ export class ColorCalculationService {
     return cos;
   }
 
+  private calculateColor(color, cos) {
+    const hsl = this.colorConverter.rgbToHsl(color);
+    cos = (cos + 0.75) * 2 - 2;
+    hsl.l = Math.min(Math.max(hsl.l * cos, hsl.l / 5), 1);
+    const rgb = this.colorConverter.hslToRgb(hsl);
+    const newColor = {
+      r: color.r * cos,
+      g: color.g * cos,
+      b: color.b * cos,
+    };
+    return rgb;
+  }
+
   calculatePixelColor(imageData, collide: {t: number, object: FormClass}, light, camera: Ray, pixel) {
     const lightRay = this.getLightRay(light, collide, camera);
     const normal = this.getNormal(lightRay, collide.object); // calculate normal
     const cos = this.calculateCos(lightRay.ray, normal.ray); // calculate cosinus
-    // calculate luminosity
+    const color = this.calculateColor(collide.object.color, cos); // calculate luminosity
     const index = (pixel.y + 200) * 600 * 4 + (pixel.x + 300) * 4;
-    console.log(cos);
-    const color = {
-      r: collide.object.color.r * cos,
-      g: collide.object.color.g * cos,
-      b: collide.object.color.b * cos,
-    };
     imageData.data[index] = color.r > 255 ? 255 : color.r;
     imageData.data[index + 1] = color.g > 255 ? 255 : color.g;
     imageData.data[index + 2] = color.b > 255 ? 255 : color.b;

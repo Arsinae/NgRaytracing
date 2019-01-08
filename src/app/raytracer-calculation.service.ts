@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 
 import { SphereService } from './collide/sphere.service';
 import { CylinderService } from './collide/cylinder.service';
-import { ColorCalculationService } from './color-calculation.service';
+import { ColorCalculationService } from './color/color-calculation.service';
 
 @Injectable({
   providedIn: 'root'
