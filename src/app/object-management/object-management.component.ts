@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormClass, Light } from '../raytracer/dataClass';
+import { Sphere } from '../objects/sphere';
+import { Hyperbole } from './../objects/hyperbole';
+import { Cone } from './../objects/cone';
+import { Cylinder } from '../objects/cylinder';
 
 @Component({
   selector: 'app-object-management',
@@ -19,13 +23,28 @@ export class ObjectManagementComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeType(newType, index) {
+    let newObj: FormClass;
+    if (newType === 'sphere') {
+      newObj = new Sphere();
+    } else if (newType === 'cylinder') {
+      newObj = new Cylinder();
+    } else if (newType === 'cone') {
+      newObj = new Cone();
+    } else if (newType === 'hyperbole') {
+      newObj = new Hyperbole();
+    }
+    newObj.copy(this.objectList[index]);
+    this.objectList[index] = newObj;
+  }
+
   deleteObject(index) {
     this.objectList.splice(index, 1);
     this.objectListChange.emit(this.objectList);
   }
 
   addObject() {
-    this.objectList.push(new FormClass());
+    this.objectList.push(new Sphere());
     this.objectListChange.emit(this.objectList);
   }
 

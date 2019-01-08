@@ -1,4 +1,3 @@
-import { CollideModule } from './collide/collide.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
  import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +18,6 @@ import { ObjectManagementComponent } from './object-management/object-management
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    CollideModule,
     RoledenComponentModule
   ],
   providers: [],

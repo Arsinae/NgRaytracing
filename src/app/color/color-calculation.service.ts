@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SphereService } from '../collide/sphere.service';
-import { CylinderService } from '../collide/cylinder.service';
-import { ConeService } from '../collide/cone.service';
-import { HyperboleService } from '../collide/hyperbole.service';
 import { Ray, Light, LightRay, FormClass } from '../raytracer/dataClass';
 import { HslService } from './hsl.service';
 
@@ -24,17 +20,8 @@ export class ColorCalculationService {
     return ray;
   }
 
-  private getNormal(lightray, object) {
-    if (object.type === 'sphere') {
-     return SphereService.normal(object, lightray.impact);
-    } else if (object.type === 'cylinder') {
-      return CylinderService.normal(object, lightray.impact);
-    } else if (object.type === 'cone') {
-      return ConeService.normal(object, lightray.impact);
-    } else if (object.type === 'hyperbole') {
-      return HyperboleService.normal(object, lightray.impact);
-    }
-    return new LightRay();
+  private getNormal(lightray, object: FormClass) {
+    return object.normal(lightray.impact);
   }
 
   private  calculateDistance(ray) {
@@ -50,8 +37,8 @@ export class ColorCalculationService {
 
   private calculateColor(color, cos) {
     const hsl = this.colorConverter.rgbToHsl(color);
-    cos = (cos + 0.75) * 2 - 2;
-    hsl.l = Math.min(Math.max(hsl.l * cos, hsl.l / 5), 1);
+    cos = (cos + 1) / 2;
+    hsl.l = Math.min(Math.max(hsl.l * cos, hsl.l / 3), 1);
     const rgb = this.colorConverter.hslToRgb(hsl);
     const newColor = {
       r: color.r * cos,

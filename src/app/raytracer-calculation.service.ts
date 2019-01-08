@@ -1,11 +1,6 @@
-import { FormClass, Ray } from './raytracer/dataClass';
-import { HyperboleService } from './collide/hyperbole.service';
-import { ConeService } from './collide/cone.service';
 import { Injectable } from '@angular/core';
-
-import { SphereService } from './collide/sphere.service';
-import { CylinderService } from './collide/cylinder.service';
 import { ColorCalculationService } from './color/color-calculation.service';
+import { FormClass, Ray } from './raytracer/dataClass';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +11,8 @@ export class RaytracerCalculationService {
 
   // Search if there is a collision between a ray and one object depending his type
   // Return the collision data (vector distance & object collided)
-  searchCollision(collide, object, cameraPos, lineVector) {
-    let pointObj: Number;
-    if (object.type === 'sphere') {
-      pointObj = SphereService.collide(object, cameraPos, lineVector);
-    } else if (object.type === 'cylinder') {
-      pointObj = CylinderService.collide(object, cameraPos, lineVector);
-    } else if (object.type === 'cone') {
-      pointObj = ConeService.collide(object, cameraPos, lineVector);
-    } else if (object.type === 'hyperbole') {
-      pointObj = HyperboleService.collide(object, cameraPos, lineVector);
-    }
+  searchCollision(collide, object: FormClass, cameraPos, lineVector) {
+    const pointObj: Number = object.collide(cameraPos, lineVector);
     if (pointObj !== -1) {
       collide = (collide.t === -1 || (collide.t !== -1 && pointObj < collide.t)) ? {t: pointObj, object: object} : collide;
     }

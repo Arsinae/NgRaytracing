@@ -3,7 +3,7 @@
     <div class="accordeonTitle" title>Object {{i + 1}}</div>
     <div class="inputLine">
       <span>
-        <rd-select [(value)]="object.type" [color]="'green'" [placeholder]="'Type'">
+        <rd-select [value]="object.type" (valueChange)="changeType($event, i)" [color]="'green'" [placeholder]="'Type'">
           <rd-select-option [value]="'sphere'" [text]="'Sphere'">
             <div class="selectOption">Sphere</div>
           </rd-select-option>
