@@ -7,15 +7,17 @@ export class Plane extends FormClass {
 
   constructor() {
     super();
+    this.vector.y = 1;
+    this.vector.z = 1;
   }
 
   collide(camera, vector) {
-    let t = -((this.pos.x * (camera.x - this.vector.x)) + (this.pos.y * (camera.y - this.vector.y))
-    + (this.pos.z * (camera.z - this.vector.z)) + this.center);
-    const tmp = (camera.x * vector.x) + (camera.y * vector.y) + (camera.z * vector.y);
+    const tmp = (this.vector.x * vector.x) + (this.vector.y * vector.y) + (this.vector.z * vector.z);
     if (tmp === 0) {
       return -1;
     }
+    let t = this.pos.x * this.vector.x + this.pos.y * this.vector.y + this.pos.z * this.vector.z
+    - camera.x * this.vector.x - camera.y * this.vector.y - camera.z * this.vector.z;
     t = t / tmp;
     return (t <= 0) ? -1 : t;
   }
