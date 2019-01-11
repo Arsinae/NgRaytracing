@@ -40,11 +40,11 @@ export class ColorCalculationService {
     cos = (cos + 1) / 2;
     hsl.l = Math.min(Math.max(hsl.l * cos, hsl.l / 3), 1);
     const rgb = this.colorConverter.hslToRgb(hsl);
-    const newColor = {
+    /* const newColor = {
       r: color.r * cos,
       g: color.g * cos,
       b: color.b * cos,
-    };
+    }; */
     return rgb;
   }
 
@@ -52,7 +52,8 @@ export class ColorCalculationService {
     const lightRay = this.getLightRay(light, collide, camera);
     const normal = this.getNormal(lightRay, collide.object); // calculate normal
     const cos = this.calculateCos(lightRay.ray, normal.ray); // calculate cosinus
-    const color = this.calculateColor(collide.object.color, cos); // calculate luminosity
+    const color = (collide.object.type === 'plane') ? (collide.object.color)
+    : this.calculateColor(collide.object.color, cos); // calculate luminosity
     const index = (pixel.y + 200) * 600 * 4 + (pixel.x + 300) * 4;
     imageData.data[index] = color.r > 255 ? 255 : color.r;
     imageData.data[index + 1] = color.g > 255 ? 255 : color.g;

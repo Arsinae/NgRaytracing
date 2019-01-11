@@ -14,16 +14,19 @@
             <div class="selectOption">Cone</div>
           </rd-select-option>
           <rd-select-option [value]="'hyperbole'" [text]="'Hyperbole'">
-            <div class="selectOption last">Hyperbole</div>
+            <div class="selectOption">Hyperbole</div>
+          </rd-select-option>
+          <rd-select-option [value]="'plane'" [text]="'Plane'">
+            <div class="selectOption last">Plane</div>
           </rd-select-option>
         </rd-select>
       </span>
 
-      <span>
+      <span *ngIf="object.type !== 'plane'">
         <rd-input [placeholder]="'Rayon'" [type]="'number'" [(value)]="object.r" [color]="'green'"></rd-input>
       </span>
 
-      <span *ngIf="object.type !== 'sphere'">
+      <span *ngIf="object.type !== 'sphere' && object.type !== 'plane'">
         <rd-input [placeholder]="'Size'" [type]="'number'" [(value)]="object.size" [color]="'green'"></rd-input>
       </span>
 
@@ -47,10 +50,27 @@
           <rd-input [placeholder]="'Z'" [type]="'number'" [(value)]="object.pos.z" [color]="'green'"></rd-input>
         </span>
       </div>
+    </div>
 
-      <div class="deleteButton">
-        <rd-button [color]="'red'" (buttonClick)="deleteObject(i)">Delete</rd-button>
+    <div class="posForm" *ngIf="object.type === 'plane'">
+      <div class="title">Vector</div>
+      <div class="inputLine">
+        <span>
+          <rd-input [placeholder]="'X'" [type]="'number'" [(value)]="object['vector'].x" [color]="'green'"></rd-input>
+        </span>
+
+        <span>
+          <rd-input [placeholder]="'Y'" [type]="'number'" [(value)]="object['vector'].y" [color]="'green'"></rd-input>
+        </span>
+
+        <span>
+          <rd-input [placeholder]="'Z'" [type]="'number'" [(value)]="object['vector'].z" [color]="'green'"></rd-input>
+        </span>
       </div>
+    </div>
+
+    <div class="deleteButton">
+      <rd-button [color]="'red'" (buttonClick)="deleteObject(i)">Delete</rd-button>
     </div>
   </rd-panel>
   <rd-panel *ngIf="objectList.length < 5" (stateChange)="addObject()" [color]="'green'">

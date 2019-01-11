@@ -6,7 +6,7 @@
   align-content: space-around;
 
   &>span {
-    padding: 0 $margin;
+    padding: 0 $margin/2;
     flex: 1;
     min-width: 150px;
     box-sizing: border-box;
@@ -14,7 +14,8 @@
 
   .selectOption {
     border-bottom: 1px $dark-green solid;
-    padding: $margin $margin/2;
+    padding: 1px $margin/2;
+    font-size: 12px;
 
     &.last {
       border: none;

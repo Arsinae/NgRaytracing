@@ -4,6 +4,7 @@ import { Sphere } from '../objects/sphere';
 import { Hyperbole } from './../objects/hyperbole';
 import { Cone } from './../objects/cone';
 import { Cylinder } from '../objects/cylinder';
+import { Plane } from '../objects/plane';
 
 @Component({
   selector: 'app-object-management',
@@ -33,6 +34,8 @@ export class ObjectManagementComponent implements OnInit {
       newObj = new Cone();
     } else if (newType === 'hyperbole') {
       newObj = new Hyperbole();
+    } else if (newType === 'plane') {
+      newObj = new Plane();
     }
     newObj.copy(this.objectList[index]);
     this.objectList[index] = newObj;
