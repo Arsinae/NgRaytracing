@@ -25,9 +25,9 @@ export class Plane extends FormClass {
   normal(impact) {
     const normal = new Ray();
     normal.pos = this.pos;
-    normal.ray.x = this.pos.x;
-    normal.ray.y = this.pos.y;
-    normal.ray.z = this.pos.z;
+    normal.ray.x = -this.pos.x;
+    normal.ray.y = -this.pos.y;
+    normal.ray.z = -this.pos.z;
     return normal;
   }
 

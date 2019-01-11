@@ -48,11 +48,21 @@ export class ColorCalculationService {
     return rgb;
   }
 
+  private calculatePlanCheck(color, camera: Ray, t: number, cos) {
+    const x = camera.pos.x + camera.ray.x * t + 5000;
+    const y = camera.pos.y + camera.ray.y * t + 5000;
+    if ((x % 40 < 20 && y % 40 < 20) || (x % 40 >= 20 && y % 40 >= 20)) {
+      return this.calculateColor(color, cos);
+    } else {
+      return ({r: 0, g: 0, b: 0});
+    }
+  }
+
   calculatePixelColor(imageData, collide: {t: number, object: FormClass}, light, camera: Ray, pixel) {
     const lightRay = this.getLightRay(light, collide, camera);
     const normal = this.getNormal(lightRay, collide.object); // calculate normal
     const cos = this.calculateCos(lightRay.ray, normal.ray); // calculate cosinus
-    const color = (collide.object.type === 'plane') ? (collide.object.color)
+    const color = (collide.object.type === 'plane') ? this.calculatePlanCheck(collide.object.color, camera, collide.t, cos)
     : this.calculateColor(collide.object.color, cos); // calculate luminosity
     const index = (pixel.y + 200) * 600 * 4 + (pixel.x + 300) * 4;
     imageData.data[index] = color.r > 255 ? 255 : color.r;

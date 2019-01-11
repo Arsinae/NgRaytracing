@@ -46,7 +46,6 @@ export class ObjectManagementComponent implements OnInit {
   }
 
   changeColor(color, object) {
-    console.log(color, color.substr(4));
     const newColor = color.substr(4, color.length - 5).split(',');
     object.color.r = newColor[0];
     object.color.g = newColor[1];
