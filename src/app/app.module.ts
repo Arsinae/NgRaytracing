@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
  import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RoledenComponentModule } from 'roleden-component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppComponent } from './app.component';
 import { RaytracerComponent } from './raytracer/raytracer.component';
@@ -18,7 +19,8 @@ import { ObjectManagementComponent } from './object-management/object-management
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RoledenComponentModule
+    RoledenComponentModule,
+    ColorPickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

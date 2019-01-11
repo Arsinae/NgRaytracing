@@ -33,6 +33,12 @@
       <span *ngIf="object.type === 'hyperbole'">
         <rd-input [placeholder]="'Center Size'" [type]="'number'" [(value)]="object.center" [color]="'green'"></rd-input>
       </span>
+
+      <span>
+        <div>Color</div>
+        <input [colorPicker]="getColor(object.color)" [style.background]="getColor(object.color)" [cpOutputFormat]="'rgba'"
+        [value]="getColor(object.color)" (colorPickerChange)="changeColor($event, object)" [cpAlphaChannel]="'disabled'">
+      </span>
     </div>
 
     <div class="posForm">

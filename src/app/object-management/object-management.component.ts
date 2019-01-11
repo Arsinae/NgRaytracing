@@ -41,6 +41,18 @@ export class ObjectManagementComponent implements OnInit {
     this.objectList[index] = newObj;
   }
 
+  getColor(color) {
+    return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
+  }
+
+  changeColor(color, object) {
+    console.log(color, color.substr(4));
+    const newColor = color.substr(4, color.length - 5).split(',');
+    object.color.r = newColor[0];
+    object.color.g = newColor[1];
+    object.color.b = newColor[2];
+  }
+
   deleteObject(index) {
     this.objectList.splice(index, 1);
     this.objectListChange.emit(this.objectList);

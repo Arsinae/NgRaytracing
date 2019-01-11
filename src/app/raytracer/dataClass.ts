@@ -11,7 +11,7 @@ class Color {
   public r = 255;
   public g = 0;
   public b = 0;
-  public a = 0;
+  public a = 1;
 }
 
 export class FormClass {
