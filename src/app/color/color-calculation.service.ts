@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Ray, Light, LightRay, FormClass } from '../raytracer/dataClass';
 import { HslService } from './hsl.service';
+import { ShadowService } from './../shadow/shadow.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColorCalculationService {
 
-  constructor(private colorConverter: HslService) { }
+  constructor(private colorConverter: HslService, private shadow: ShadowService) { }
 
   private getLightRay(light: Light, collide, camera: Ray) {
     const ray = new LightRay();
@@ -58,15 +59,13 @@ export class ColorCalculationService {
     }
   }
 
-  calculatePixelColor(imageData, collide: {t: number, object: FormClass}, light, camera: Ray, pixel) {
+  calculatePixelColor(collide: {t: number, object: FormClass}, light, camera: Ray, objectList) {
     const lightRay = this.getLightRay(light, collide, camera);
+    const shadow = this.shadow.checkShadow(objectList, collide.object, light, lightRay.impact);
     const normal = this.getNormal(lightRay, collide.object); // calculate normal
     const cos = this.calculateCos(lightRay.ray, normal.ray); // calculate cosinus
     const color = (collide.object.type === 'plane') ? this.calculatePlanCheck(collide.object.color, camera, collide.t, cos)
     : this.calculateColor(collide.object.color, cos); // calculate luminosity
-    const index = (pixel.y + 200) * 600 * 4 + (pixel.x + 300) * 4;
-    imageData.data[index] = color.r > 255 ? 255 : color.r;
-    imageData.data[index + 1] = color.g > 255 ? 255 : color.g;
-    imageData.data[index + 2] = color.b > 255 ? 255 : color.b;
+    return (shadow === -1) ? color : this.shadow.calculateShadowColor(color);
   }
 }
