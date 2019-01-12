@@ -50,4 +50,15 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
     });
   }
 
+  downloadImage() {
+    console.log('download');
+    this.canvas.nativeElement.toBlob((blob) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'raytracing.png';
+      document.body.appendChild(a);
+      a.click();
+    });
+  }
+
 }
