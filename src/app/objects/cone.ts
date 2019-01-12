@@ -11,9 +11,9 @@ export class Cone extends FormClass {
   private delta(a, b, c, delta) {
     const t1 = (-b + Math.sqrt(delta)) / (2 * a);
     const t2 = (-b - Math.sqrt(delta)) / (2 * a);
-    if (t1 < 0 && t2 < 0) {
+    if (t1 < 1 && t2 < 1) {
       return (-1);
-    } else if (t1 < t2 && t1 >= 0) {
+    } else if (t1 < t2 && t1 >= 1) {
       return t1;
     } else {
       return t2;
