@@ -33,7 +33,7 @@ export class RaytracerCalculationService {
         for (const object of objectList) {
           collide = this.searchCollision(collide, object, camera.pos, camera.ray);
         }
-        if (collide.t !== -1) {
+        if (collide.t >= 1) {
           const color = this.color.calculatePixelColor(collide, light, camera, objectList);
           const index = (y + 200) * 600 * 4 + (x + 300) * 4;
           imageData.data[index] = color.r > 255 ? 255 : color.r;

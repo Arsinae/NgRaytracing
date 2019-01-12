@@ -19,7 +19,7 @@ export class Plane extends FormClass {
     let t = this.pos.x * this.vector.x + this.pos.y * this.vector.y + this.pos.z * this.vector.z
     - camera.x * this.vector.x - camera.y * this.vector.y - camera.z * this.vector.z;
     t = t / tmp;
-    return (t <= 1) ? -1 : t;
+    return (t <= 0) ? -1 : t;
   }
 
   normal(impact) {
