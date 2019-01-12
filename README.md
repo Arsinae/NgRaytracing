@@ -1,3 +1,3 @@
 # NgRaytracing
 
-![alt text](./assets/raytracing.png "Raytracing Example")
+![alt text](raytracing.png "Raytracing Example")
