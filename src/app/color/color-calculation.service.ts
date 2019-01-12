@@ -36,10 +36,11 @@ export class ColorCalculationService {
     return cos;
   }
 
-  private calculateColor(color, cos) {
+  private calculateColor(color, cos, t) {
     const hsl = this.colorConverter.rgbToHsl(color);
-    cos = (cos + 1) / 2;
-    hsl.l = Math.min(Math.max(hsl.l * cos, hsl.l / 3), 1);
+    const angleFactor = (cos + 1) / 2;
+    const distFactor = Math.max(t - 1, 1);
+    hsl.l = Math.min(Math.max(hsl.l * angleFactor / distFactor, hsl.l / 3), 1);
     const rgb = this.colorConverter.hslToRgb(hsl);
     /* const newColor = {
       r: color.r * cos,
@@ -54,7 +55,7 @@ export class ColorCalculationService {
     const y = camera.pos.y + camera.ray.y * t + 5000;
     if ((x % object.size * 2 < object.size && y % object.size * 2 < object.size)
     || (x % object.size * 2 >= object.size && y % object.size * 2 >= object.size)) {
-      return this.calculateColor(object.color, cos);
+      return this.calculateColor(object.color, cos, t);
     } else {
       return ({r: 0, g: 0, b: 0});
     }
@@ -66,7 +67,7 @@ export class ColorCalculationService {
     const normal = this.getNormal(lightRay, collide.object); // calculate normal
     const cos = this.calculateCos(lightRay.ray, normal.ray); // calculate cosinus
     const color = (collide.object.type === 'plane') ? this.calculatePlanCheck(collide.object, camera, collide.t, cos)
-    : this.calculateColor(collide.object.color, cos); // calculate luminosity
+    : this.calculateColor(collide.object.color, cos, collide.t); // calculate luminosity
     return (shadow === -1) ? color : this.shadow.calculateShadowColor(color);
   }
 }
