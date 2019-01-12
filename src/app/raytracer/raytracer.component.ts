@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { RaytracerCalculationService } from '../raytracer-calculation.service';
+import { RaytracerCalculationService } from './raytracer-calculation.service';
 import { Sphere } from './../objects/sphere';
 import { FormClass, Light } from './dataClass';
 

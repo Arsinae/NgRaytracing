@@ -41,6 +41,10 @@ export class ObjectManagementComponent implements OnInit {
     this.objectList[index] = newObj;
   }
 
+  getValue(value) {
+    return parseInt(value, 10);
+  }
+
   getColor(color) {
     return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
   }

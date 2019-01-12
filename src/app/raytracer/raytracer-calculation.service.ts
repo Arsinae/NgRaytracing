@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ColorCalculationService } from './color/color-calculation.service';
-import { FormClass, Ray } from './raytracer/dataClass';
+import { ColorCalculationService } from '../color/color-calculation.service';
+import { FormClass, Ray } from './dataClass';
 
 @Injectable({
   providedIn: 'root'
