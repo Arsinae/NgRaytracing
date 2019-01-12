@@ -24,11 +24,11 @@ export class RaytracerCalculationService {
   printImage(ctx, objectList: Array<FormClass>, light) {
     const step = 1;
     const camera = new Ray();
-    camera.pos = {x: 0, y: 0, z: -600};
+    camera.pos = {x: 0, y: 0, z: -400};
     const imageData = ctx.getImageData(0, 0, 600, 400);
     for (let y = -200; y < 200; y += step) {
       for (let x = -300; x < 300; x += step) {
-        camera.ray = {x: x, y: y, z: 600};
+        camera.ray = {x: x, y: y, z: 400};
         let collide: {t: number, object: FormClass} = {t: -1, object: new FormClass()};
         for (const object of objectList) {
           collide = this.searchCollision(collide, object, camera.pos, camera.ray);

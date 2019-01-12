@@ -49,11 +49,12 @@ export class ColorCalculationService {
     return rgb;
   }
 
-  private calculatePlanCheck(color, camera: Ray, t: number, cos) {
+  private calculatePlanCheck(object, camera: Ray, t: number, cos) {
     const x = camera.pos.x + camera.ray.x * t + 5000;
     const y = camera.pos.y + camera.ray.y * t + 5000;
-    if ((x % 40 < 20 && y % 40 < 20) || (x % 40 >= 20 && y % 40 >= 20)) {
-      return this.calculateColor(color, cos);
+    if ((x % object.size * 2 < object.size && y % object.size * 2 < object.size)
+    || (x % object.size * 2 >= object.size && y % object.size * 2 >= object.size)) {
+      return this.calculateColor(object.color, cos);
     } else {
       return ({r: 0, g: 0, b: 0});
     }
@@ -64,7 +65,7 @@ export class ColorCalculationService {
     const shadow = this.shadow.checkShadow(objectList, collide.object, light, lightRay.impact);
     const normal = this.getNormal(lightRay, collide.object); // calculate normal
     const cos = this.calculateCos(lightRay.ray, normal.ray); // calculate cosinus
-    const color = (collide.object.type === 'plane') ? this.calculatePlanCheck(collide.object.color, camera, collide.t, cos)
+    const color = (collide.object.type === 'plane') ? this.calculatePlanCheck(collide.object, camera, collide.t, cos)
     : this.calculateColor(collide.object.color, cos); // calculate luminosity
     return (shadow === -1) ? color : this.shadow.calculateShadowColor(color);
   }

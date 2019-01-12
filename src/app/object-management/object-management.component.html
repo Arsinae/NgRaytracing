@@ -26,7 +26,7 @@
         <rd-input [placeholder]="'Rayon'" [type]="'number'" [(value)]="object.r" [color]="'green'"></rd-input>
       </span>
 
-      <span *ngIf="object.type !== 'sphere' && object.type !== 'plane'">
+      <span *ngIf="object.type !== 'sphere' && object.type == 'plane'">
         <rd-input [placeholder]="'Size'" [type]="'number'" [(value)]="object.size" [color]="'green'"></rd-input>
       </span>
 
