@@ -70,4 +70,19 @@ export class ColorCalculationService {
     : this.calculateColor(collide.object.color, cos, collide.t); // calculate luminosity
     return (shadow === -1) ? color : this.shadow.calculateShadowColor(color);
   }
+
+  applyColor(imageData, index, colorArr) {
+    const newColor = {r: 0, g: 0, b: 0};
+    for (const color of colorArr) {
+      newColor.r += color.r;
+      newColor.g += color.g;
+      newColor.b += color.b;
+    }
+    newColor.r /= colorArr.length;
+    newColor.g /= colorArr.length;
+    newColor.b /= colorArr.length;
+    imageData.data[index] = newColor.r > 255 ? 255 : newColor.r;
+    imageData.data[index + 1] = newColor.g > 255 ? 255 : newColor.g;
+    imageData.data[index + 2] = newColor.b > 255 ? 255 : newColor.b;
+  }
 }

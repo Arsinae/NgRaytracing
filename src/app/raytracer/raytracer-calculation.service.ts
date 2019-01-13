@@ -23,23 +23,29 @@ export class RaytracerCalculationService {
   // The camera is set in {0, 0, -600} and the plane start at (-300, -200, 0)
   printImage(ctx, objectList: Array<FormClass>, light) {
     const step = 1;
+    const aliasing = 8;
     const camera = new Ray();
-    camera.pos = {x: 0, y: 0, z: -400};
+    camera.pos = {x: 0, y: 0, z: -600};
     const imageData = ctx.getImageData(0, 0, 600, 400);
     for (let y = -200; y < 200; y += step) {
       for (let x = -300; x < 300; x += step) {
-        camera.ray = {x: x, y: y, z: 400};
-        let collide: {t: number, object: FormClass} = {t: -1, object: new FormClass()};
-        for (const object of objectList) {
-          collide = this.searchCollision(collide, object, camera.pos, camera.ray);
+        const color = [];
+        const index = (y + 200) * 600 * 4 + (x + 300) * 4;
+        for (let i = 0; i < aliasing * aliasing; i++) {
+          camera.ray = {
+            x: x * aliasing + i % aliasing,
+            y: y * aliasing + i / aliasing,
+            z: 600
+          };
+          let collide: {t: number, object: FormClass} = {t: -1, object: new FormClass()};
+          for (const object of objectList) {
+            collide = this.searchCollision(collide, object, camera.pos, camera.ray);
+          }
+          if (collide.t >= 1) {
+            color.push(this.color.calculatePixelColor(collide, light, camera, objectList));
+          }
         }
-        if (collide.t >= 1) {
-          const color = this.color.calculatePixelColor(collide, light, camera, objectList);
-          const index = (y + 200) * 600 * 4 + (x + 300) * 4;
-          imageData.data[index] = color.r > 255 ? 255 : color.r;
-          imageData.data[index + 1] = color.g > 255 ? 255 : color.g;
-          imageData.data[index + 2] = color.b > 255 ? 255 : color.b;
-        }
+        this.color.applyColor(imageData, index, color);
       }
     }
     ctx.putImageData(imageData, 0, 0);
