@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RaytracerCalculationService } from './raytracer-calculation.service';
 import { Sphere } from './../objects/sphere';
 import { FormClass, Light } from './dataClass';
+import {AlertService } from 'roleden-component';
 
 @Component({
   selector: 'app-raytracer',
@@ -18,7 +19,7 @@ export class RaytracerComponent implements OnInit, AfterViewInit {
 
   light = new Light();
 
-  constructor(private raytracer: RaytracerCalculationService) { }
+  constructor(private raytracer: RaytracerCalculationService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.canvas.nativeElement.width = 600;

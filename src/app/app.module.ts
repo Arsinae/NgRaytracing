@@ -19,7 +19,7 @@ import { ObjectManagementComponent } from './object-management/object-management
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RoledenComponentModule,
+    RoledenComponentModule.forRoot(),
     ColorPickerModule
   ],
   providers: [],
